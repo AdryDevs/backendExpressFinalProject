@@ -4,6 +4,7 @@
     "password": "root",
     "database": "Database",
     "host": "127.0.0.1",
+    "port": "33061",
     "dialect": "mysql"
   },
   "test": {
@@ -11,6 +12,7 @@
     "password": null,
     "database": "database_test",
     "host": "127.0.0.1",
+    "port": "33061",
     "dialect": "mysql"
   },
   "production": {
@@ -18,6 +20,7 @@
     "password": null,
     "database": "database_production",
     "host": "127.0.0.1",
+    "port": "33061",
     "dialect": "mysql"
   }
 }
