@@ -2,23 +2,17 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('users', {
+    await queryInterface.createTable('bookings', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      username: {
-        type: Sequelize.STRING
+      date: {
+        type: Sequelize.DATE
       },
-      email: {
-        type: Sequelize.STRING
-      },
-      password: {
-        type: Sequelize.STRING
-      },
-      id_role: {
+      table: {
         type: Sequelize.INTEGER
       },
       createdAt: {
@@ -30,19 +24,19 @@ module.exports = {
         type: Sequelize.DATE
       }
     });
-    await queryInterface.addConstraint('users', {
-      fields: ['id_role'],
+    await queryInterface.addConstraint('bookings', {
+      fields: ['id_user'],
       type: 'foreign key',
-      name: 'fk_user_role',
+      name: 'fk_booking_user',
       references: {
-        table: 'roles',
+        table: 'users',
         field: 'id'
-      },
+  },
       onDelete: 'cascade',
       onUpdate: 'cascade'
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('users');
+    await queryInterface.dropTable('bookings');
   }
 };

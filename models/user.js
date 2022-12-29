@@ -44,7 +44,7 @@ module.exports = (sequelize, DataTypes) => {
         len: [8, 20]
     }
   },
-  id_role:{
+  role_id:{
     type:DataTypes.INTEGER
   },
     createdAt: {
