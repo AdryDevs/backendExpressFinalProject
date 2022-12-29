@@ -22,6 +22,9 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
+      },
+      id_user: {
+        type: Sequelize.INTEGER
       }
     });
     await queryInterface.addConstraint('timetables', {

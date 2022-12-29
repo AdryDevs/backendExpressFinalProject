@@ -16,7 +16,8 @@ module.exports = (sequelize, DataTypes) => {
   }
   timetable.init({
     date: DataTypes.DATE,
-    time: DataTypes.STRING
+    time: DataTypes.STRING,
+    id_user: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'timetable',
