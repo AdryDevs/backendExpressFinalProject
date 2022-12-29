@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       user.hasOne(models.role, { foreignKey: 'id' });
+      user.hasOne(models.timetable, { foreignKey: 'id' });
     }
   }
   user.init({
