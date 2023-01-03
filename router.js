@@ -7,10 +7,9 @@ const UserRoutes = require ('./views/UserRouter');
 const BookingRoutes = require ('./views/BookingRouter');
 
 //Middlewares
-const auth = require ('./middlewares/auth');
-
-// //Routes
+const { authBearerMiddleware, isValidRoleAdmin } = require ('./middlewares/auth');
+//Routes
 router.use ('/user', UserRoutes);
-router.use ('/booking', auth, BookingRoutes);
+router.use ('/booking', authBearerMiddleware, isValidRoleAdmin ,BookingRoutes);
 
 module.exports = router;

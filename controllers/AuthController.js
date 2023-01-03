@@ -47,35 +47,27 @@ AuthController.login = async (req, res) => {
 AuthController.register = async (req, res) => {
     const { email, password } = req.body;
 
-    if (await models.User.findOne({ where: { email } })) {
-        return res.status(400).json({ message: 'User already exists' });
-    }
+    if (await models.user.findOne({ where: { email:email } })) {
+      return res.status(400).send({ error: 'User already exists' });
+  }   
 
     try {
-        const hashedPassword = await bcrypt.hash(req.body.password, 8);
-        const user = await models.User.create({
+        const hashedPassword = await bcrypt.hash(password, 8);
+
+        const user = await models.user.create ({
             email,
             password: hashedPassword
         });
 
-    const token = jwt.sign({
-        id: user.id,
-        email: user.email,
-        created: Date.now(),
-        role: user.role
-    }, authConfig.secret, {
-        expiresIn: 86400
-    });
-} catch (error) {
-    console.log(error);
-    res.status(500).json({ message: 'Error on registry' });
-    return
-}
-    res.status(200).json({ token });
-    message = "User created successfully";
-    jwt: token
+        const token = jwt.sign({ id: user.id }, "hola", {
+            expiresIn: authConfig.expires
+        });
+
+        res.send({ user, token });
+    } catch (err) {
+        return res.status(400).send({ error: 'Registration failed' });
+    }
 }
 
 
 module.exports = AuthController;
-        
