@@ -3,6 +3,7 @@ const models = require('../models/index');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const authConfig = require('../config/auth');
+const { secret } = require('../config/auth');
 
 const AuthController = {};
 
@@ -22,7 +23,7 @@ AuthController.login = async (req, res) => {
         return
     }
 
-    const secret = "mysecretword";
+    const secret = process.env.JWT_SECRET;
 
     if (secret.length < 1) {
         throw new Error('JWT secret not defined');
@@ -61,7 +62,7 @@ AuthController.register = async (req, res) => {
             password: hashedPassword
         });
 
-        const token = jwt.sign({ id: user.id }, 'mysecretword', {
+        const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
             expiresIn: authConfig.expires
         });
 
