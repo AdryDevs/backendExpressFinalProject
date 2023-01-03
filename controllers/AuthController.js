@@ -6,13 +6,13 @@ const authConfig = require('../config/auth');
 
 const AuthController = {};
 
-//Login and generate token
+//Login 
 AuthController.login = async (req, res) => {
     const { email, password } = req.body;
     const userFound = await models.User.findOne({ 
         where: { email } });
     if (!userFound) {
-        return res.status(400).json({ message: 'User or password not valid' });
+        res.status(400).json({ message: 'User or password not valid' });
     return
     }
     const hashedPassword = await bcrypt.hash(req.body.password, 8);
@@ -28,15 +28,15 @@ AuthController.login = async (req, res) => {
         throw new Error('JWT secret not defined');
     }
 
-//Generate token
-    const token = jwt.sign({
-        id: userFound.id,
-        email: userFound.email,
-        created: Date.now(),
-        role: userFound.role
-    }, authConfig.secret, {
-        expiresIn: 86400 
-});
+    //Generate token
+        const token = jwt.sign({
+            id: userFound.id,
+            email: userFound.email,
+            created: Date.now(),
+            role: userFound.role
+        }, authConfig.secret, {
+            expiresIn: 86400 
+        });
 
     res.status(200).json({ token });
       message = "User logged in successfully";

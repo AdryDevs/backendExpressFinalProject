@@ -53,8 +53,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     updatedAt: {
       type: DataTypes.DATE,
-    }, sequelize,
-    modelName: 'user',
+    },
+  },{
+      sequelize,
+    modelName: 'user'
   });
   return user;
 };

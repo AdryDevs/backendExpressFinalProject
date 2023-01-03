@@ -9,8 +9,8 @@ module.exports = {
       email: 'alonsoadrian86@gmail.com',
       password: 'adrian',
       id_role: 1,
-      createdAt: new Date(),
-      updatedAt: new Date()
+      createdAt: '2021-01-01 00:00:00',
+      updatedAt: '2021-01-01 00:00:00'
     }], {});
   },
 

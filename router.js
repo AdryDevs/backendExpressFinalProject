@@ -1,6 +1,6 @@
-const router = require ('express').Router();
 
-const { application } = require ('express');
+const express = require ('express');
+const router = express.Router();
 
 //Importing routes
 const UserRoutes = require ('./views/UserRouter');
@@ -9,6 +9,8 @@ const BookingRoutes = require ('./views/BookingRouter');
 //Middlewares
 const auth = require ('./middlewares/auth');
 
-//Routes
+// //Routes
 router.use ('/user', UserRoutes);
 router.use ('/booking', auth, BookingRoutes);
+
+module.exports = router;
