@@ -9,7 +9,7 @@ const AuthController = {};
 //Login 
 AuthController.login = async (req, res) => {
     const { email, password } = req.body;
-    const userFound = await models.User.findOne({ 
+    const userFound = await models.user.findOne({ 
         where: { email } });
     if (!userFound) {
         res.status(400).json({ message: 'User or password not valid' });
@@ -18,11 +18,11 @@ AuthController.login = async (req, res) => {
     const hashedPassword = await bcrypt.hash(req.body.password, 8);
     if (hashedPassword !== userFound.password) {
         console.log(hashedPassword + ' ' + userFound.password);
-        res.status(401).json({ message: 'User or password not valid' });
+        res.status(401).json({ message: 'password or User not valid' });
         return
     }
-    console.log(userFound);
-    const secret = process.env.JWT_SECRET || "mysecretword";
+
+    const secret = "mysecretword";
 
     if (secret.length < 1) {
         throw new Error('JWT secret not defined');
@@ -45,26 +45,29 @@ AuthController.login = async (req, res) => {
 
 //Register new user and generate token
 AuthController.register = async (req, res) => {
-    const { email, password } = req.body;
+    const { email, password, username } = req.body;
 
     if (await models.user.findOne({ where: { email:email } })) {
       return res.status(400).send({ error: 'User already exists' });
   }   
 
     try {
-        const hashedPassword = await bcrypt.hash(password, 8);
+
+        const hashedPassword = await bcrypt.hash(req.body.password, 8);
 
         const user = await models.user.create ({
+            username,
             email,
             password: hashedPassword
         });
 
-        const token = jwt.sign({ id: user.id }, "hola", {
+        const token = jwt.sign({ id: user.id }, 'mysecretword', {
             expiresIn: authConfig.expires
         });
 
         res.send({ user, token });
     } catch (err) {
+        console.log(err);
         return res.status(400).send({ error: 'Registration failed' });
     }
 }
