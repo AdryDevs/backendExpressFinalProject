@@ -3,12 +3,15 @@ const db = require('./db')
 const PORT = process.env.PORT || 3000
 const app = express()
 const Router = require('./router')
+const cors = require('cors')
 
+app.use(cors())
+
+app.use(express.urlencoded({ extended: true }))
 
 app.use(express.json())
+
 app.use(Router)
-
-
 
 app.listen(PORT, () => {
   console.log(`Express server listening on port ${PORT}`)

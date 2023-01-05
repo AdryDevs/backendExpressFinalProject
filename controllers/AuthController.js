@@ -1,6 +1,6 @@
 
 const models = require('../models/index');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const authConfig = require('../config/auth');
 const { secret } = require('../config/auth');
@@ -16,13 +16,14 @@ AuthController.login = async (req, res) => {
         res.status(400).json({ message: 'User or password not valid' });
     return
     }
-    const hashedPassword = await bcrypt.hash(req.body.password, 8);
-    if (hashedPassword !== userFound.password) {
-        console.log(hashedPassword + ' ' + userFound.password);
-        res.status(401).json({ message: 'password or User not valid' });
-        return
-    }
+    //Check password
+    const passCheck = await bcrypt.compare(password, userFound.password);
 
+    if (!passCheck) {
+        res.status(400).json({ message: 'Password or user not valid' });
+    return
+    }
+    //Check if JWT secret is defined
     const secret = process.env.JWT_SECRET;
 
     if (secret.length < 1) {
@@ -40,7 +41,7 @@ AuthController.login = async (req, res) => {
         });
 
     res.status(200).json({ token });
-      message = "User logged in successfully";
+      message = "User logged in successfully"
       jwt: token
     }
 
@@ -48,20 +49,21 @@ AuthController.login = async (req, res) => {
 AuthController.register = async (req, res) => {
     const { email, password, username } = req.body;
 
+    //Check if user already exists
     if (await models.user.findOne({ where: { email:email } })) {
       return res.status(400).send({ error: 'User already exists' });
   }   
-
+    //Encrypt password
     try {
-
         const hashedPassword = await bcrypt.hash(req.body.password, 8);
 
         const user = await models.user.create ({
             username,
             email,
+            id_role: 2,
             password: hashedPassword
         });
-
+        //Generate token
         const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
             expiresIn: authConfig.expires
         });

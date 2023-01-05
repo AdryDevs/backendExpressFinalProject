@@ -1,8 +1,12 @@
 const models = require("../models/index");
-const crypto = require("node:crypto");
+const crypto = require("crypto");
+const jwt = require("jsonwebtoken");
+const authConfig = require("../config/auth");
+const { secret } = require("../config/auth");
 const { REPL_MODE_SLOPPY } = require("node:repl");
 
-// Comprobar si el email estÃ¡ registrado.
+
+// Check if the email is already registered
 
 async function assertEmailIsUniqueService(email) {
   // validate email is unique
@@ -13,7 +17,7 @@ async function assertEmailIsUniqueService(email) {
   }
 }
 
- // Crea un usuario.
+ // Create a new user
 
 async function createUserService(userBody) {
   let day;
@@ -35,11 +39,11 @@ async function createUserService(userBody) {
   return created;
 }
 
-  //Recibe un string y los hashea.
+  // Encrypt the password
 
 function encryptPassword(password) {
   const hash = crypto
-    .createHmac("sha512", 'no salt for now // TODO: REALLY NEED TO ADD SALT?')
+    .createHmac("sha512", process.env.SECRET_KEY)
     .update(password)
     .digest("base64");
   return hash;
@@ -66,6 +70,8 @@ async function isValidUserAndPassword(user, pass) {
     }
     return false;
   }
+
+
 
 module.exports = {
   assertEmailIsUniqueService,
