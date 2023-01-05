@@ -40,10 +40,9 @@ AuthController.login = async (req, res) => {
             expiresIn: 86400 
         });
 
-    res.status(200).json({ token });
-      message = "User logged in successfully"
-      jwt: token
-    }
+        //Send token and message
+        res.json({ message: 'User logged in', token });
+};
 
 //Register new user and generate token
 AuthController.register = async (req, res) => {
