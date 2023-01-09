@@ -12,12 +12,16 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       booking.belongsTo(models.user, { foreignKey: 'id' });
+      booking.belongsTo(models.table, { foreignKey: 'id' });
+      booking.belongsTo(models.meal, { foreignKey: 'id' });
     }
   }
   booking.init({
     date: DataTypes.DATE,
     table: DataTypes.INTEGER,
-    id_user: DataTypes.INTEGER
+    id_user: DataTypes.INTEGER,
+    id_table: DataTypes.INTEGER,
+    id_meal: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'booking',

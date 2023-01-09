@@ -25,6 +25,12 @@ module.exports = {
       },
       id_user: {
         type: Sequelize.INTEGER
+      },
+      id_table: {
+        type: Sequelize.INTEGER
+      },
+      id_meal: {
+        type: Sequelize.INTEGER
       }
     });
     await queryInterface.addConstraint('bookings', {
@@ -34,7 +40,29 @@ module.exports = {
       references: {
         table: 'users',
         field: 'id'
-  },
+      },
+      onDelete: 'cascade',
+      onUpdate: 'cascade'
+    });
+      await queryInterface.addConstraint('bookings', {
+      fields: ['id_table'],
+      type: 'foreign key',
+      name: 'fk_booking_table',
+      references: {
+        table: 'tables',
+        field: 'id'
+      },
+      onDelete: 'cascade',
+      onUpdate: 'cascade'
+    });
+      await queryInterface.addConstraint('bookings', {
+      fields: ['id_meal'],
+      type: 'foreign key',
+      name: 'fk_booking_meal',
+      references: {
+        table: 'meals',
+        field: 'id'
+      },
       onDelete: 'cascade',
       onUpdate: 'cascade'
     });

@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       user.hasOne(models.role, { foreignKey: 'id' });
       user.hasOne(models.timetable, { foreignKey: 'id' });
+      user.hasOne(models.booking, { foreignKey: 'id' })
     }
   }
   user.init({
