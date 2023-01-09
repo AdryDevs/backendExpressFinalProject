@@ -5,14 +5,18 @@ const jsonwebtoken = require("jsonwebtoken");
 
 const authBearerMiddleware = async (req, res, next) => {
   const { authorization } = req.headers;
-  console.log(req.headers);
+  if (!authorization) {
+    res.status(401).json({ message: "You are not authenticated" });
+    return; 
+  }
   const [strategy, jwt] = authorization.split(" ");
   try {
     if (strategy.toLowerCase() !== "bearer") {
       throw new Error("Invalid strategy");
     }
+    console.log(process.env.JWT_SECRET);
     const payload = jsonwebtoken.verify(jwt, process.env.JWT_SECRET);
-
+    console.log("111111111111111");
     const created = payload.created;
 
     const timeElapsed = Date.now() - created;

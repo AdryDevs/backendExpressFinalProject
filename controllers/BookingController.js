@@ -9,7 +9,7 @@ const BookingController = {};
 //Create
 
 BookingController.createBooking = async (req, res) => {
-  const { id } = req.params;
+  const userId = req.auth.id;
   const { name, surname, email, phone, date, time, people, message } = req.body;
   const newBooking = await Models.Booking.create({
     name,
@@ -34,6 +34,7 @@ BookingController.createBooking = async (req, res) => {
 //Read
 
 BookingController.getAllBookings = async (req, res) => {
+    console.log(req.auth);
     const bookings = await Models.Booking.findAll();
     res.json({
         data: bookings

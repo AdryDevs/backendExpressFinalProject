@@ -10,6 +10,8 @@ const BookingRoutes = require ('./views/BookingRouter');
 const { authBearerMiddleware, isValidRoleAdmin } = require ('./middlewares/auth');
 //Routes
 router.use ('/user', UserRoutes);
-router.use ('/booking', authBearerMiddleware, isValidRoleAdmin ,BookingRoutes);
+router.use ('/booking', authBearerMiddleware,
+//  isValidRoleAdmin 
+BookingRoutes);
 
 module.exports = router;
