@@ -17,7 +17,7 @@ BookingController.createBooking = async (req, res) => {
     email,
     phone,
     date,
-    time,
+    meal,
     people,
     message
   }, {
