@@ -75,5 +75,14 @@ AuthController.register = async (req, res) => {
     }
 }
 
+//Get all users
+
+AuthController.getAllUsers = async (req, res) => {
+    const users = await models.user.findAll();
+    res.json({
+        data: users
+    });
+};
+
 
 module.exports = AuthController;
