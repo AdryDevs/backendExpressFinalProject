@@ -81,9 +81,7 @@ AuthController.register = async (req, res) => {
 
 AuthController.getAllUsers = async (req, res) => {
     const users = await models.user.findAll();
-    res.json({
-        data: users
-    });
+    res.json(users);
 };
 
 
