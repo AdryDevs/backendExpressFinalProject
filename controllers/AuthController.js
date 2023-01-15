@@ -29,23 +29,21 @@ AuthController.login = async (req, res) => {
         if (secret.length < 1) {
             throw new Error('JWT secret not defined');
         }
+        //Generate token
+        const token = jwt.sign({
+            id: userFound.dataValues.id,
+            email: userFound.email,
+            created: Date.now(),
+            role: userFound.role
+        }, authConfig.secret, {
+            expiresIn: 86400
+        });
+
+        //Send token and message
+        res.json({ message: 'User logged in', token });
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
-
-
-    //Generate token
-    const token = jwt.sign({
-        id: userFound.dataValues.id,
-        email: userFound.email,
-        created: Date.now(),
-        role: userFound.role
-    }, authConfig.secret, {
-        expiresIn: 86400
-    });
-
-    //Send token and message
-    res.json({ message: 'User logged in', token });
 };
 
 //Register new user and generate token
