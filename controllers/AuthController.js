@@ -36,7 +36,7 @@ AuthController.login = async (req, res) => {
 
     //Generate token
     const token = jwt.sign({
-        id: userFound.id,
+        id: userFound.dataValues.id,
         email: userFound.email,
         created: Date.now(),
         role: userFound.role
