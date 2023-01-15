@@ -13,6 +13,7 @@ AuthController.login = async (req, res) => {
         const userFound = await models.user.findOne({
             where: { email }
         });
+        console.log(userFound);
         if (!userFound) {
             throw new Error('User or password not valid');
         }
