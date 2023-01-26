@@ -9,6 +9,7 @@ const { authBearerMiddleware, isValidRoleAdmin } = require ('../middlewares/auth
 
 router.get ('/', authBearerMiddleware, TablesController.getAllTables);
 router.get ('/admin/all', authBearerMiddleware, isValidRoleAdmin, TablesController.getAllTablesAvailable);
+router.put ('/:id', authBearerMiddleware, TablesController.updateTableAvailable);
 
 
 module.exports = router;

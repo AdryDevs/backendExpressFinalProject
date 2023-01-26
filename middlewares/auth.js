@@ -14,9 +14,7 @@ const authBearerMiddleware = async (req, res, next) => {
     if (strategy.toLowerCase() !== "bearer") {
       throw new Error("Invalid strategy");
     }
-    console.log(process.env.JWT_SECRET);
     const payload = jsonwebtoken.verify(jwt, process.env.JWT_SECRET);
-    console.log("111111111111111");
     const created = payload.created;
 
     const timeElapsed = Date.now() - created;
@@ -43,7 +41,6 @@ const authBearerMiddleware = async (req, res, next) => {
 //check if the user is admin
 
 const isValidRoleAdmin =  (req, res, next) => {
-  console.log(req.auth?.role);
   if (req.auth?.role === 1) {
     next();
   } else {

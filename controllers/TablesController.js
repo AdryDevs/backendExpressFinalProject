@@ -1,6 +1,6 @@
 
 const Models = require('../models');
-const { Op } = require('sequelize');
+const { Op, where } = require('sequelize');
 
 const TablesController = {};
 
@@ -38,5 +38,47 @@ TablesController.getAllTables = async (req, res) => {
         });
     }
 };
+
+
+
+// switch table.available to false or true
+
+TablesController.updateTableAvailable = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const table = await Models.table.findOne({
+            where: { id }
+        });
+        const newAvailable = !table.available;     
+        const updatedTable = await Models.table.update({
+            available: newAvailable
+        }, {
+            where: {
+                id
+            }
+        });
+        res.json({
+            message: `Table updated, now table is ${newAvailable}`,
+            data: table
+        });
+    } catch (error) {
+        res.status(500).json({
+            message: "Error updating table",
+            data: {}
+        });
+    }
+};
+
+
+module.exports = TablesController;
+
+
+
+
+
+
+
+        
+
 
 module.exports = TablesController;

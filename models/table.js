@@ -15,7 +15,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   table.init({
-    people: DataTypes.INTEGER
+    people: DataTypes.INTEGER,
+    available: DataTypes.BOOLEAN
   }, {
     sequelize,
     modelName: 'table',
