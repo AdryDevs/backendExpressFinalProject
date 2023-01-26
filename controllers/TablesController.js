@@ -10,11 +10,13 @@ const TablesController = {};
 
 TablesController.getAllTablesAvailable = async (req, res) => {
     try {
-        const tables = await Models.Table.findAll({
+        const tables = await Models.table.findAll({
             where: {
                 available : true
-            }
+            },
+        
         });
+        res.json(tables);
     } catch (error) {
         res.status(500).json({
             message: "Error getting tables available",
