@@ -1,5 +1,5 @@
 
-const Models = require('../models');
+const Models = require('../models/index');
 const { Op } = require('sequelize');
 
 const BookingController = {};
@@ -9,37 +9,36 @@ const BookingController = {};
 //Create
 
 BookingController.createBooking = async (req, res) => {
-  const userId = req.auth.id;
-  const { name, surname, email, phone, date, time, people, message } = req.body;
-  const newBooking = await Models.Booking.create({
-    name,
-    surname,
-    email,
-    phone,
-    date,
-    meal,
-    people,
-    message
-  }, {
-    fields: ['name', 'surname', 'email', 'phone', 'date', 'time', 'people', 'message']
-  });
-  if (newBooking) {
-    return res.json({
-      message: 'Booking created successfully',
-      data: newBooking
+    const userId = req.auth.id;
+    const { name, surname, email, phone, date, people, message } = req.body;
+    const newBooking = await Models.Booking.create({
+        name,
+        surname,
+        email,
+        phone,
+        date,
+        meal,
+        people,
+        message
+    }, {
+        fields: ['name', 'surname', 'email', 'phone', 'date', 'time', 'people', 'message']
     });
-  }
+    if (newBooking) {
+        return res.json({
+            message: 'Booking created successfully',
+            data: newBooking
+        });
+    }
 };
 
 //Read
 
 BookingController.getAllBookings = async (req, res) => {
-    console.log(req.auth);
     const bookings = await Models.Booking.findAll();
     res.json({
         data: bookings
     });
-    };
+};
 
 BookingController.getBookingById = async (req, res) => {
     const { id } = req.params;

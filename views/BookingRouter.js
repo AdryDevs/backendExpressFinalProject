@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 const BookingController = require('../controllers/BookingController');
+const { authBearerMiddleware, isValidRoleAdmin } = require('../middlewares/auth');
 
 //Endpoints
 

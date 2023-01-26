@@ -12,6 +12,10 @@ module.exports = {
       people: {
         type: Sequelize.INTEGER
       },
+      available: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: true
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

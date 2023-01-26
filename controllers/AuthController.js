@@ -13,7 +13,6 @@ AuthController.login = async (req, res) => {
         const userFound = await models.user.findOne({
             where: { email }
         });
-        console.log(userFound);
         if (!userFound) {
             throw new Error('User or password not valid');
         }
@@ -34,7 +33,7 @@ AuthController.login = async (req, res) => {
             id: userFound.dataValues.id,
             email: userFound.email,
             created: Date.now(),
-            role: userFound.role
+            role: userFound.id_role
         }, authConfig.secret, {
             expiresIn: 86400
         });
