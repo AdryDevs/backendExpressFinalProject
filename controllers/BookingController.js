@@ -9,48 +9,53 @@ const BookingController = {};
 //Create
 
 BookingController.createBooking = async (req, res) => {
-    const userId = req.auth.id;
-    const { name, surname, email, phone, date, people, message } = req.body;
-    const newBooking = await Models.Booking.create({
-        name,
-        surname,
-        email,
-        phone,
-        date,
-        meal,
-        people,
-        message
-    }, {
-        fields: ['name', 'surname', 'email', 'phone', 'date', 'time', 'people', 'message']
-    });
-    if (newBooking) {
-        return res.json({
-            message: 'Booking created successfully',
-            data: newBooking
+    try {
+        const { name, email, phone, date, meal, people, message } = req.body;
+        let newBooking = await Models.booking.create({
+            name,
+            email,
+            phone,
+            date,
+            meal,
+            people,
+            message
+        }, {
+            fields: ['name', 'email', 'phone', 'date', 'meal', 'people', 'message']
+        });
+        if (newBooking) {
+            return res.json({
+                message: 'Booking created successfully',
+                data: newBooking
+            });
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: 'Error creating booking',
+            data: {}
         });
     }
 };
 
+
 //Read
 
 BookingController.getAllBookings = async (req, res) => {
-    const bookings = await Models.Booking.findAll();
-    res.json({
-        data: bookings
-    });
+    try{
+        const bookings = await Models.booking.findAll();
+        res.json({
+            data: bookings
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: 'Error getting all bookings',
+            data: {}
+        });
+    }
 };
 
-BookingController.getBookingById = async (req, res) => {
-    const { id } = req.params;
-    const booking = await Models.Booking.findOne({
-        where: {
-            id
-        }
-    });
-    res.json({
-        data: booking
-    });
-};
+
 
 //Update
 
@@ -85,17 +90,6 @@ BookingController.updateBooking = async (req, res) => {
 
 //Delete
 
-BookingController.deleteBooking = async (req, res) => {
-    const { id } = req.params;
-    const deleteRowCount = await Models.Booking.destroy({
-        where: {
-            id
-        }
-    });
-    res.json({
-        message: 'Booking deleted successfully',
-        count: deleteRowCount
-    });
-};
+
 
 module.exports = BookingController;

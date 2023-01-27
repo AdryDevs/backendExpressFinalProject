@@ -31,6 +31,15 @@ module.exports = {
       },
       id_meal: {
         type: Sequelize.INTEGER
+      }, 
+      people: {
+        type: Sequelize.INTEGER
+      },
+      message: {
+        type: Sequelize.STRING
+      },
+      phone: {
+        type: Sequelize.STRING
       }
     });
     await queryInterface.addConstraint('bookings', {

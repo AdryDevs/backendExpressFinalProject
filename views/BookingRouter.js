@@ -7,10 +7,10 @@ const { authBearerMiddleware, isValidRoleAdmin } = require('../middlewares/auth'
 
 //Endpoints
 
-router.get('/', BookingController.getAllBookings);
-router.get('/:id', BookingController.getBookingById);
+router.get('/',authBearerMiddleware, isValidRoleAdmin, BookingController.getAllBookings);
+
 router.post('/new', BookingController.createBooking);
 router.put('/:id', BookingController.updateBooking);
-router.delete('/:id', BookingController.deleteBooking);
+
 
 module.exports = router;
