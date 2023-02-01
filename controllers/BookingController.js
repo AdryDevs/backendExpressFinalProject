@@ -88,7 +88,27 @@ BookingController.updateBooking = async (req, res) => {
     })
 };
 
-//Delete
+BookingController.getBookingsById = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const bookings = await Models.booking.findOne({
+            where: {
+                id
+            }
+        });
+        res.json({
+            data: bookings
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: 'Error getting booking by id',
+            data: {}
+        });
+    }
+};
+
+
 
 
 
