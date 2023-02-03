@@ -43,9 +43,9 @@ BookingController.createBooking = async (req, res) => {
 BookingController.getAllBookings = async (req, res) => {
     try{
         const bookings = await Models.booking.findAll();
-        res.json({
-            data: bookings
-        });
+        res.json(
+            bookings
+        );
     } catch (error) {
         console.log(error);
         res.status(500).json({

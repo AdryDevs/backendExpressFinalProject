@@ -29,8 +29,8 @@ module.exports = {
       id_table: {
         type: Sequelize.INTEGER
       },
-      id_meal: {
-        type: Sequelize.INTEGER
+      meal: {
+        type: Sequelize.STRING
       }, 
       people: {
         type: Sequelize.INTEGER
@@ -41,6 +41,7 @@ module.exports = {
       phone: {
         type: Sequelize.STRING
       }
+
     });
     await queryInterface.addConstraint('bookings', {
       fields: ['id_user'],

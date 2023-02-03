@@ -38,8 +38,11 @@ AuthController.login = async (req, res) => {
             expiresIn: 86400
         });
 
+        const admin = userFound.id_role === 1 ? true : false;
+        const username = userFound.username;
+
         //Send token and message
-        res.json({ message: 'User logged in', token });
+        res.json({ message: 'User logged in', token, admin, username });
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
