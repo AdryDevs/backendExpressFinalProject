@@ -13,17 +13,22 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       booking.belongsTo(models.user, { foreignKey: 'id' });
       booking.belongsTo(models.table, { foreignKey: 'id' });
-      booking.belongsTo(models.meal, { foreignKey: 'id' });
     }
   }
   booking.init({
     date: DataTypes.DATE,
     id_user: DataTypes.INTEGER,
     id_table: DataTypes.INTEGER,
-    id_meal: DataTypes.INTEGER,
     people: DataTypes.INTEGER,
     message: DataTypes.STRING,
-    phone: DataTypes.STRING
+    phone: DataTypes.STRING,
+    username: DataTypes.STRING,
+    email: DataTypes.STRING,
+    meal: DataTypes.STRING
+
+
+
+
     
   }, {
     sequelize,

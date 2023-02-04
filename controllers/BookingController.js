@@ -10,9 +10,9 @@ const BookingController = {};
 
 BookingController.createBooking = async (req, res) => {
     try {
-        const { name, email, phone, date, meal, people, message } = req.body;
+        const { username, email, phone, date, meal, people, message } = req.body;
         let newBooking = await Models.booking.create({
-            name,
+            username,
             email,
             phone,
             date,
@@ -20,7 +20,7 @@ BookingController.createBooking = async (req, res) => {
             people,
             message
         }, {
-            fields: ['name', 'email', 'phone', 'date', 'meal', 'people', 'message']
+            fields: ['username', 'email', 'phone', 'date', 'meal', 'people', 'message']
         });
         if (newBooking) {
             return res.json({
@@ -57,52 +57,47 @@ BookingController.getAllBookings = async (req, res) => {
 
 
 
-//Update
 
-BookingController.updateBooking = async (req, res) => {
-    const { id } = req.params;
-    const { name, surname, email, phone, date, time, people, message } = req.body;
-    const bookings = await Models.Booking.findAll({
-        attributes: ['id', 'name', 'surname', 'email', 'phone', 'date', 'time', 'people', 'message'],
-        where: {
-            id
-        }
-    });
-    if (bookings.length > 0) {
-        bookings.forEach(async booking => {
-            await booking.update({
-                name,
-                surname,
-                email,
-                phone,
-                date,
-                time,
-                people,
-                message
-            });
-        })
-    }
-    return res.json({
-        message: 'Booking updated successfully',
-        data: bookings
-    })
-};
+
+
 
 BookingController.getBookingsById = async (req, res) => {
     try {
         const { id } = req.params;
-        const bookings = await Models.booking.findOne({
+        const bookings = await Models.booking.findAll({
+            where: {
+                id_user: id
+            }
+        });
+        console.log(bookings);
+        res.json({
+            bookings
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: 'Error getting users bookings',
+            data: {}
+        });
+    }
+};
+
+BookingController.deleteBooking = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const deleteRowCount = await Models.booking.destroy({
             where: {
                 id
             }
         });
         res.json({
-            data: bookings
+            message: 'Booking deleted successfully',
+            count: deleteRowCount
         });
     } catch (error) {
         console.log(error);
         res.status(500).json({
-            message: 'Error getting booking by id',
+            message: 'Error deleting booking',
             data: {}
         });
     }

@@ -40,7 +40,13 @@ module.exports = {
       },
       phone: {
         type: Sequelize.STRING
-      }
+      },
+      username: {
+        type: Sequelize.STRING
+      },
+      email: {
+        type: Sequelize.STRING
+      },
 
     });
     await queryInterface.addConstraint('bookings', {
@@ -60,17 +66,6 @@ module.exports = {
       name: 'fk_booking_table',
       references: {
         table: 'tables',
-        field: 'id'
-      },
-      onDelete: 'cascade',
-      onUpdate: 'cascade'
-    });
-      await queryInterface.addConstraint('bookings', {
-      fields: ['id_meal'],
-      type: 'foreign key',
-      name: 'fk_booking_meal',
-      references: {
-        table: 'meals',
         field: 'id'
       },
       onDelete: 'cascade',
