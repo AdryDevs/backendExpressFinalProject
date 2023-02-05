@@ -1,6 +1,7 @@
 
 const Models = require('../models/index');
 const { Op } = require('sequelize');
+const jsonwebtoken = require('jsonwebtoken');
 
 const BookingController = {};
 
@@ -9,8 +10,14 @@ const BookingController = {};
 //Create
 
 BookingController.createBooking = async (req, res) => {
+    const { authorization } = req.headers;
+    const [strategy, jwt] = authorization.split(" ");
+    const payload = jsonwebtoken.verify(jwt, process.env.JWT_SECRET);
+    
     try {
         const { username, email, phone, date, meal, people, message } = req.body;
+        const id_user = payload.id;
+
         let newBooking = await Models.booking.create({
             username,
             email,
@@ -18,9 +25,10 @@ BookingController.createBooking = async (req, res) => {
             date,
             meal,
             people,
-            message
+            message,
+            id_user
         }, {
-            fields: ['username', 'email', 'phone', 'date', 'meal', 'people', 'message']
+            fields: ['username', 'email', 'phone', 'date', 'meal', 'people', 'message', 'id_user']
         });
         if (newBooking) {
             return res.json({
@@ -61,6 +69,8 @@ BookingController.getAllBookings = async (req, res) => {
 
 
 
+// Controller for getting bookings of an specific user by id
+
 BookingController.getBookingsById = async (req, res) => {
     try {
         const { id } = req.params;
@@ -69,14 +79,11 @@ BookingController.getBookingsById = async (req, res) => {
                 id_user: id
             }
         });
-        console.log(bookings);
-        res.json({
-            bookings
-        });
+        res.json(bookings);
     } catch (error) {
         console.log(error);
         res.status(500).json({
-            message: 'Error getting users bookings',
+            message: 'Error getting bookings by id',
             data: {}
         });
     }

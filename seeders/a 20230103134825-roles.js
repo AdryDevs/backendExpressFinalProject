@@ -1,3 +1,15 @@
+
+const date = new Date();
+const year = date.getFullYear();
+const month = date.getMonth() + 1;
+const day = date.getDate();
+const hour = date.getHours();
+const minute = date.getMinutes();
+const second = date.getSeconds();
+
+const createdAt = `${year}-${month}-${day} ${hour}:${minute}:${second}`;
+const updatedAt = `${year}-${month}-${day} ${hour}:${minute}:${second}`;
+
 'use strict';
 
 /** @type {import('sequelize-cli').Migration} */
@@ -7,21 +19,15 @@ module.exports = {
       {
         id : 1,
         role_name : 'admin',
-        createdAt: `${new Date().getFullYear()}-${new Date().getMonth()+1}-${new Date().getDate()} ${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()}`,
-        updatedAt: `${new Date().getFullYear()}-${new Date().getMonth()+1}-${new Date().getDate()} ${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()}`
+        createdAt,
+        updatedAt
   },
   {
     id : 2,
     role_name : 'user',
-    createdAt: `${new Date().getFullYear()}-${new Date().getMonth()+1}-${new Date().getDay()} ${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()}`,
-    updatedAt: `${new Date().getFullYear()}-${new Date().getMonth()+1}-${new Date().getDay()} ${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()}`
+    createdAt,
+    updatedAt
   },
-  {
-    id : 3,
-    role_name : 'employee',
-    createdAt: `${new Date().getFullYear()}-${new Date().getMonth()+1}-${new Date().getDay()} ${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()}`,
-    updatedAt: `${new Date().getFullYear()}-${new Date().getMonth()+1}-${new Date().getDay()} ${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()}`
-  }
 ], {});
   },
 

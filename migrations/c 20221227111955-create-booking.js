@@ -12,9 +12,6 @@ module.exports = {
       date: {
         type: Sequelize.DATEONLY
       },
-      table: {
-        type: Sequelize.INTEGER
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
@@ -24,9 +21,6 @@ module.exports = {
         type: Sequelize.DATE
       },
       id_user: {
-        type: Sequelize.INTEGER
-      },
-      id_table: {
         type: Sequelize.INTEGER
       },
       meal: {
@@ -55,17 +49,6 @@ module.exports = {
       name: 'fk_booking_user',
       references: {
         table: 'users',
-        field: 'id'
-      },
-      onDelete: 'cascade',
-      onUpdate: 'cascade'
-    });
-      await queryInterface.addConstraint('bookings', {
-      fields: ['id_table'],
-      type: 'foreign key',
-      name: 'fk_booking_table',
-      references: {
-        table: 'tables',
         field: 'id'
       },
       onDelete: 'cascade',

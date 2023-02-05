@@ -16,7 +16,7 @@ app.use(Router)
 app.listen(PORT, () => {
   console.log(`Express server listening on port ${PORT}`)
   
-  db.sync()
+  db.sync({ force: true})
   .then(() => {
     console.log('Connected to the database')
   })

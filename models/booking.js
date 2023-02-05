@@ -2,6 +2,7 @@
 const {
   Model
 } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class booking extends Model {
     /**
@@ -12,13 +13,11 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       booking.belongsTo(models.user, { foreignKey: 'id' });
-      booking.belongsTo(models.table, { foreignKey: 'id' });
     }
   }
   booking.init({
     date: DataTypes.DATE,
     id_user: DataTypes.INTEGER,
-    id_table: DataTypes.INTEGER,
     people: DataTypes.INTEGER,
     message: DataTypes.STRING,
     phone: DataTypes.STRING,

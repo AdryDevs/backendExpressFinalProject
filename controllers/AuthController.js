@@ -40,9 +40,10 @@ AuthController.login = async (req, res) => {
 
         const admin = userFound.id_role === 1 ? true : false;
         const username = userFound.username;
+        const id_user = userFound.id;
 
         //Send token and message
-        res.json({ message: 'User logged in', token, admin, username });
+        res.json({ message: 'User logged in', token, admin, username, id_user });
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
@@ -66,12 +67,9 @@ AuthController.register = async (req, res) => {
             id_role: 2,
             password: hashedPassword
         });
-        //Generate token
-        const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
-            expiresIn: authConfig.expires
-        });
+        
 
-        res.send({ user, token });
+        res.send({ user });
     } catch (err) {
         console.log(err);
         return res.status(400).send({ error: 'Registration failed' });
