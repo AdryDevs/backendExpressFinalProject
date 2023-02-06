@@ -1,49 +1,70 @@
-Express API Sequelize + Mysql + jwt
-COMANDOS BÁSICOS
 
-npm init
-npm install
-npm update
-npm run dev
-npm run start
+# Bookings Manager
+This app is made for any business (in this case a restaurant) in order to make reservations for users and to manage all of them as an Administrator.
 
-npm install cors jsonwebtoken bcrypt
-sequelize model:generate --name user --attributes name:string, password:string, email:string
-sequelize db:create
-sequelize db:migrate
 
-sequelize db:migrate:undo
-sequelize db:migrate:undo:all
+## Tech Stack
 
-sequelize seed:generate --name demo-user
-sequelize db:seed:all
-sequelize db:seed:undo
-sequelize db:seed:undo:all
-END-POINTS
+**Client:** React, Redux, SCSS, Javascript
+
+**Server:** NodeJS, ExpressJS
+
+**Deploys:** frontend AWS backend Railway
+
+
+## Installation
+
+clone the repository on your vscode (only the front, the back is deployed:
+type: "git clone https://github.com/AdryDevs/frontend-react-final-project.git" on your console
+
+Once cloned, install all modules by typing : "npm install" on your console.
+
+start the app by typing: "npm start" on your console.
+
+After a few seconds the app should now be working and displayed on your default browser.
+
+
+    
+## Authors
+
+- [@AdryDevs](https://github.com/AdryDevs)
+
+
+## API References
 
 #### Register
-POST - localhost:3000/api/signup - { "name": "root", "email": "root@email.com",  "password": "password" }
+
+http://localhost:3000/user/register
 
 #### Login
-POST - localhost:3000/api/signin - { "email": "root@email.com",  "password": "password" }
 
-#### Home
-GET - localhost:3000
+http://localhost:3000/user/login
 
-#### Movies
-GET - localhost:3000/movies
-GET - localhost:3000/movies/:id
-GET - localhost:3000/movies/name/:title
-POST - localhost:3000/movies
-PUT - localhost:3000/movies:id
-DELETE - localhost:3000/movies
-DELETE - localhost:3000/movies:id
+#### Create new booking
 
-#### Categories
-GET - localhost:3000/categories
-GET - localhost:3000/categories/:id
-GET - localhost:3000/categories/name/:title
-POST - localhost:3000/categories
-PUT - localhost:3000/categories:id
-DELETE - localhost:3000/categories
-DELETE - localhost:3000/categories:id
+http://localhost:3000/booking/new
+
+#### Get all bookings (admin only)
+
+http://localhost:3000/booking/
+
+#### Get all user's bookings
+
+http://localhost:3000/booking/:id
+
+#### Get all users (admin only)
+
+http://localhost:3000/user/admin/all
+
+#### Delete booking
+
+http://localhost:3000/booking/:id
+
+
+
+
+
+
+
+
+
