@@ -25,10 +25,9 @@ BookingController.createBooking = async (req, res) => {
             date,
             meal,
             people,
-            message,
             id_user
         }, {
-            fields: ['username', 'email', 'phone', 'date', 'meal', 'people', 'message', 'id_user']
+            fields: ['username', 'email', 'phone', 'date', 'meal', 'people', 'id_user']
         });
         if (newBooking) {
             return res.json({
