@@ -22,12 +22,7 @@ AuthController.login = async (req, res) => {
         if (!passCheck) {
             throw new Error('Password or user not valid');
         }
-        //Check if JWT secret is defined
-        const secret = process.env.JWT_SECRET;
-
-        if (secret.length < 1) {
-            throw new Error('JWT secret not defined');
-        }
+        
         //Generate token
         const token = jwt.sign({
             id: userFound.dataValues.id,
